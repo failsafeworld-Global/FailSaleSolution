@@ -1,88 +1,357 @@
-index.html
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>FailSafe</title>
+
+  <!-- Modern font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
   <style>
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #ffffff;
-      color: #111;
-      line-height: 1.6;
+    :root{
+      --bg: #0b1220;
+      --panel: rgba(255,255,255,0.06);
+      --panel-2: rgba(255,255,255,0.08);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.70);
+      --muted2: rgba(255,255,255,0.55);
+      --line: rgba(255,255,255,0.12);
+      --accent: #ffffff;
+      --shadow: 0 20px 60px rgba(0,0,0,0.35);
+      --radius: 18px;
     }
-    .container {
-      max-width: 900px;
+
+    *{ box-sizing: border-box; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 700px at 20% 10%, rgba(255,255,255,0.10), transparent 55%),
+                  radial-gradient(900px 500px at 80% 30%, rgba(255,255,255,0.08), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+      line-height:1.6;
+    }
+
+    a{ color: inherit; }
+
+    .wrap{
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 80px 24px;
+      padding: 28px 20px 70px;
     }
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 16px;
+
+    /* Top bar */
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      border-radius: 999px;
+      backdrop-filter: blur(8px);
+      box-shadow: var(--shadow);
     }
-    h2 {
-      margin-top: 48px;
-      font-size: 1.6rem;
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
     }
-    p {
-      font-size: 1.05rem;
-      margin-bottom: 16px;
+    .dot{
+      width:10px;height:10px;border-radius:999px;
+      background: rgba(255,255,255,0.9);
+      box-shadow: 0 0 0 6px rgba(255,255,255,0.08);
     }
-    .tagline {
-      font-size: 1.25rem;
-      color: #444;
+    .nav{
+      display:flex;
+      gap:14px;
+      font-size: 0.95rem;
+      color: var(--muted);
     }
-    .cta {
-      margin-top: 40px;
-      padding: 16px 28px;
-      font-size: 1rem;
-      background: #000;
-      color: #fff;
-      border: none;
-      cursor: pointer;
+    .nav a{
+      text-decoration:none;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
     }
-    footer {
-      margin-top: 80px;
+    .nav a:hover{
+      border-color: var(--line);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+    }
+
+    /* Hero */
+    .hero{
+      margin-top: 26px;
+      padding: 44px 28px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+      box-shadow: var(--shadow);
+    }
+    .kicker{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
       font-size: 0.9rem;
-      color: #666;
+      margin-bottom: 18px;
+    }
+    h1{
+      margin: 0 0 14px;
+      font-size: clamp(2.1rem, 4vw, 3.2rem);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+    .subtitle{
+      margin: 0 0 26px;
+      color: var(--muted);
+      font-size: 1.08rem;
+      max-width: 70ch;
+    }
+
+    .ctaRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top: 6px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 14px 18px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      text-decoration:none;
+      font-weight: 600;
+      cursor:pointer;
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.10);
+      border-color: rgba(255,255,255,0.18);
+    }
+    .btnPrimary{
+      background: rgba(255,255,255,0.95);
+      color: #0b1220;
+      border-color: rgba(255,255,255,0.55);
+    }
+    .btnPrimary:hover{
+      background: rgba(255,255,255,1);
+      border-color: rgba(255,255,255,0.7);
+    }
+    .smallnote{
+      margin-top: 14px;
+      color: var(--muted2);
+      font-size: 0.92rem;
+    }
+
+    /* Grid sections */
+    .section{
+      margin-top: 26px;
+      padding: 24px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+    }
+    .section h2{
+      margin: 0 0 12px;
+      font-size: 1.3rem;
+      letter-spacing: -0.01em;
+    }
+    .section p{
+      margin: 0 0 0;
+      color: var(--muted);
+      max-width: 80ch;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .card{
+      grid-column: span 4;
+      padding: 18px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+    }
+    .card h3{
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+    }
+    .card p{
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .twoCol{
+      display:grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 14px;
+      margin-top: 14px;
+      align-items: start;
+    }
+    .panel{
+      padding: 18px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+    }
+    .panel h3{ margin:0 0 8px; font-size: 1.05rem; }
+    .panel ul{
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+    .panel li{ margin: 8px 0; }
+
+    footer{
+      margin-top: 26px;
+      padding: 18px 4px 0;
+      color: var(--muted2);
+      font-size: 0.9rem;
+      display:flex;
+      justify-content:space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .card{ grid-column: span 6; }
+      .twoCol{ grid-template-columns: 1fr; }
+      .nav{ display:none; }
+    }
+    @media (max-width: 520px){
+      .card{ grid-column: span 12; }
+      .hero{ padding: 34px 18px; }
+      .topbar{ padding: 12px 12px; }
     }
   </style>
 </head>
+
 <body>
-  <div class="container">
-    <h1>FailSafe</h1>
-    <p class="tagline">
-      Controlled-access pharmaceutical safety cap for prescription medications.
-    </p>
+  <div class="wrap">
 
-    <h2>The Problem</h2>
-    <p>
-      Once prescription medications enter the home, physical access is largely unrestricted.
-      This contributes to misuse, diversion, accidental overdose, and pediatric exposure—
-      especially with controlled substances.
-    </p>
+    <div class="topbar">
+      <div class="brand">
+        <span class="dot"></span>
+        <span>FailSafe</span>
+      </div>
+      <div class="nav">
+        <a href="#problem">Problem</a>
+        <a href="#solution">Solution</a>
+        <a href="#designedfor">Designed For</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
 
-    <h2>The Solution</h2>
-    <p>
-      FailSafe is a discreet, locking pill bottle cap that unlocks only at scheduled dosing times
-      and automatically re-locks after use. It functions like a standard pharmacy cap and requires
-      no apps, screens, or behavior change.
-    </p>
+    <section class="hero" id="top">
+      <div class="kicker">Controlled-access • Packaging-level safety</div>
+      <h1>Lock medication access between doses—without apps, screens, or behavior change.</h1>
+      <p class="subtitle">
+        FailSafe is a discreet, locking pill bottle cap that unlocks only at scheduled dosing times and
+        automatically re-locks after use, helping reduce misuse, diversion, accidental overdose, and pediatric access.
+      </p>
 
-    <h2>Designed For</h2>
-    <p>
-      Pharmaceutical manufacturers, pharmacies, healthcare systems, and vulnerable patient
-      populations where safety, autonomy, and adherence matter.
-    </p>
+      <div class="ctaRow" id="contact">
+        <a class="btn btnPrimary" href="mailto:failsafesolution@gmail.com?subject=FailSafe%20-%20Request%20Information">
+          Request Information
+        </a>
+        <a class="btn" href="#designedfor">Who it’s for</a>
+      </div>
 
-    <button class="cta">Request Information</button>
+      <div class="smallnote">
+        Early-stage venture. Interested in pilots, partnerships, or packaging integration—reach out.
+      </div>
+    </section>
+
+    <section class="section" id="problem">
+      <h2>The Problem</h2>
+      <p>
+        Once prescription medications enter the home, physical access is largely unrestricted.
+        Traditional child-resistant caps and reminder-based “smart caps” do not prevent early, duplicate,
+        or unauthorized access after the bottle is opened.
+      </p>
+    </section>
+
+    <section class="section" id="solution">
+      <h2>The Solution</h2>
+      <p>
+        FailSafe adds physical access control at the packaging level: a familiar pharmacy-cap experience
+        with an internal timed lock that permits access only at prescribed intervals.
+      </p>
+
+      <div class="cards">
+        <div class="card">
+          <h3>Unlocks only at dosing times</h3>
+          <p>Prevents early or duplicate dosing by controlling access between scheduled intervals.</p>
+        </div>
+        <div class="card">
+          <h3>Automatically re-locks</h3>
+          <p>Locks again when closed, reducing the risk of repeated access and diversion.</p>
+        </div>
+        <div class="card">
+          <h3>No app required</h3>
+          <p>No screens, tracking, or behavior change—designed to be passive and non-intrusive.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="designedfor">
+      <h2>Designed For</h2>
+      <p>
+        Pharmaceutical manufacturers, pharmacies, healthcare systems, and vulnerable patient populations
+        where safety, autonomy, and adherence matter.
+      </p>
+
+      <div class="twoCol">
+        <div class="panel">
+          <h3>Use cases</h3>
+          <ul>
+            <li><strong>Controlled substances (Schedule II–IV):</strong> reduce household diversion and impulsive overuse.</li>
+            <li><strong>Pediatric safety:</strong> an added layer of protection beyond standard child-resistant closures.</li>
+            <li><strong>Dementia/Alzheimer’s:</strong> helps prevent accidental double-dosing with a familiar user experience.</li>
+            <li><strong>Veterans & active-duty military:</strong> supports adherence without surveillance or apps.</li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h3>What we’re exploring</h3>
+          <ul>
+            <li>Packaging-line integration</li>
+            <li>Pilot partnerships</li>
+            <li>Regulatory pathway planning</li>
+            <li>Design-for-manufacture</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
     <footer>
-      © 2026 FailSafe. All rights reserved.
+      <div>© 2026 FailSafe. All rights reserved.</div>
+      <div><a href="#top" style="text-decoration:none; color:inherit;">Back to top ↑</a></div>
     </footer>
+
   </div>
 </body>
 </html>
