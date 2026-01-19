@@ -4,281 +4,305 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FailSafe</title>
-  <meta name="description" content="FailSafe is a controlled-access pharmaceutical safety cap that limits access between doses to reduce misuse, diversion, and accidental exposure." />
+  <meta name="description" content="FailSafe is a packaging-level, controlled-access safety cap designed to restrict physical access to prescription medications between scheduled dosing windows." />
 
   <style>
     :root{
-      --bg: #ffffff;
-      --text: #0b0b0f;
-      --muted: #5c5f6a;
-      --line: rgba(0,0,0,.10);
-      --card: rgba(0,0,0,.03);
-      --shadow: 0 20px 60px rgba(0,0,0,.10);
-      --radius: 20px;
-      --max: 1120px;
+      --bg:#ffffff;
+      --text:#0b0b0f;
+      --muted:#5c5f6a;
+      --line:rgba(0,0,0,.10);
+      --card:rgba(0,0,0,.03);
+      --shadow:0 20px 60px rgba(0,0,0,.10);
+      --shadow2:0 10px 26px rgba(0,0,0,.08);
+      --radius:20px;
+      --max:1120px;
     }
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, "SF Pro Display", "SF Pro Text", Segoe UI, Roboto, Arial, sans-serif;
-      color: var(--text);
-      background: var(--bg);
-      line-height: 1.45;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      font-family: ui-sans-serif, system-ui, -apple-system, "SF Pro Display", "SF Pro Text",
+        Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:var(--bg);
+      line-height:1.45;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
+    a{ color:inherit; text-decoration:none; }
+    .wrap{ max-width:var(--max); margin:0 auto; padding:0 22px; }
 
-    a { color: inherit; text-decoration: none; }
-    .wrap{ max-width: var(--max); margin: 0 auto; padding: 0 22px; }
-
-    /* Top nav (Apple-ish: minimal, sticky, subtle blur) */
+    /* Nav */
     .nav{
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: rgba(255,255,255,.80);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(0,0,0,.08);
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:rgba(255,255,255,.80);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(0,0,0,.08);
     }
     .navInner{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      height: 52px;
-      gap: 16px;
+      height:52px;
+      gap:16px;
     }
     .brand{
       display:flex;
       align-items:center;
       gap:10px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
+      font-weight:700;
+      letter-spacing:-0.02em;
+      white-space:nowrap;
     }
-    .pill{
+    .dot{
       width:10px;height:10px;border-radius:999px;background:#111;
-      box-shadow: 0 0 0 6px rgba(0,0,0,.06);
+      box-shadow:0 0 0 6px rgba(0,0,0,.06);
     }
     .links{
       display:flex;
-      gap: 18px;
-      color: rgba(0,0,0,.70);
-      font-size: 13px;
+      gap:18px;
+      color:rgba(0,0,0,.70);
+      font-size:13px;
+      white-space:nowrap;
     }
-    .links a:hover{ color: rgba(0,0,0,.92); }
+    .links a:hover{ color:rgba(0,0,0,.92); }
     .navCta{
       display:flex;
       gap:10px;
       align-items:center;
+      white-space:nowrap;
     }
+
+    /* Buttons */
     .btn{
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      padding: 9px 12px;
-      border-radius: 999px;
-      font-size: 13px;
-      border: 1px solid rgba(0,0,0,.14);
-      background: rgba(255,255,255,.85);
+      padding:9px 12px;
+      border-radius:999px;
+      font-size:13px;
+      border:1px solid rgba(0,0,0,.14);
+      background:rgba(255,255,255,.85);
       cursor:pointer;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      transition:transform .12s ease, border-color .12s ease, background .12s ease;
     }
-    .btn:hover{ transform: translateY(-1px); border-color: rgba(0,0,0,.22); }
+    .btn:hover{ transform:translateY(-1px); border-color:rgba(0,0,0,.22); }
     .btnPrimary{
-      background: #0b0b0f;
-      color: #fff;
-      border-color: #0b0b0f;
+      background:#0b0b0f;
+      color:#fff;
+      border-color:#0b0b0f;
     }
     .btnPrimary:hover{ background:#000; }
 
     /* Hero */
     .hero{
-      padding: 70px 0 40px;
+      padding:72px 0 42px;
       background:
         radial-gradient(900px 380px at 20% 10%, rgba(0,0,0,.05), transparent 60%),
         radial-gradient(900px 380px at 80% 0%, rgba(0,0,0,.04), transparent 62%),
         #fff;
     }
-
     .heroGrid{
       display:grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 34px;
-      align-items: center;
+      grid-template-columns:1.12fr 0.88fr;
+      gap:34px;
+      align-items:center;
     }
-
     .eyebrow{
       display:inline-flex;
       align-items:center;
       gap:10px;
-      font-size: 12px;
-      color: rgba(0,0,0,.62);
-      border: 1px solid rgba(0,0,0,.10);
-      background: rgba(0,0,0,.02);
-      padding: 8px 12px;
-      border-radius: 999px;
-      margin-bottom: 16px;
+      font-size:12px;
+      color:rgba(0,0,0,.62);
+      border:1px solid rgba(0,0,0,.10);
+      background:rgba(0,0,0,.02);
+      padding:8px 12px;
+      border-radius:999px;
+      margin-bottom:16px;
     }
     h1{
-      margin: 0 0 12px;
-      font-size: clamp(38px, 5vw, 62px);
-      line-height: 1.05;
-      letter-spacing: -0.04em;
+      margin:0 0 12px;
+      font-size:clamp(38px, 5vw, 62px);
+      line-height:1.05;
+      letter-spacing:-0.04em;
     }
     .sub{
-      margin: 0 0 22px;
-      color: var(--muted);
-      font-size: 18px;
-      max-width: 62ch;
+      margin:0 0 18px;
+      color:var(--muted);
+      font-size:18px;
+      max-width:62ch;
     }
     .heroActions{
       display:flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-      margin-top: 6px;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      margin-top:6px;
     }
     .note{
-      margin-top: 14px;
-      font-size: 12.5px;
-      color: rgba(0,0,0,.55);
+      margin-top:14px;
+      font-size:12.5px;
+      color:rgba(0,0,0,.55);
     }
-
-    .shotWrap{
-      display:flex;
-      justify-content:center;
-    }
+    .shotWrap{ display:flex; justify-content:center; }
     .shot{
-      width: min(420px, 100%);
-      border-radius: 28px;
-      border: 1px solid rgba(0,0,0,.10);
-      box-shadow: var(--shadow);
-      background: #fff;
+      width:min(420px, 100%);
+      border-radius:28px;
+      border:1px solid rgba(0,0,0,.10);
+      box-shadow:var(--shadow);
+      background:#fff;
     }
     .caption{
-      margin-top: 10px;
-      font-size: 12px;
-      color: rgba(0,0,0,.55);
+      margin-top:10px;
+      font-size:12px;
+      color:rgba(0,0,0,.55);
       text-align:center;
     }
 
     /* Sections */
-    .section{ padding: 56px 0; }
+    .section{ padding:56px 0; }
     .sectionHeader{
-      margin-bottom: 18px;
+      margin-bottom:18px;
       display:flex;
       align-items:flex-end;
       justify-content:space-between;
-      gap: 18px;
+      gap:18px;
     }
     .sectionHeader h2{
       margin:0;
-      font-size: 28px;
-      letter-spacing: -0.02em;
+      font-size:28px;
+      letter-spacing:-0.02em;
     }
     .sectionHeader p{
       margin:0;
-      color: var(--muted);
-      max-width: 60ch;
-      font-size: 15px;
+      color:var(--muted);
+      max-width:72ch;
+      font-size:15px;
     }
 
     .grid{
       display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 14px;
+      grid-template-columns:repeat(12, 1fr);
+      gap:14px;
     }
     .card{
-      grid-column: span 4;
-      background: var(--card);
-      border: 1px solid rgba(0,0,0,.08);
-      border-radius: var(--radius);
-      padding: 18px 18px 16px;
-      box-shadow: 0 8px 24px rgba(0,0,0,.06);
+      grid-column:span 4;
+      background:var(--card);
+      border:1px solid rgba(0,0,0,.08);
+      border-radius:var(--radius);
+      padding:18px 18px 16px;
+      box-shadow:0 8px 24px rgba(0,0,0,.06);
     }
     .card h3{
-      margin: 0 0 8px;
-      font-size: 16px;
-      letter-spacing: -0.01em;
+      margin:0 0 8px;
+      font-size:16px;
+      letter-spacing:-0.01em;
     }
     .card p{
       margin:0;
-      color: rgba(0,0,0,.62);
-      font-size: 14px;
-      line-height: 1.45;
+      color:rgba(0,0,0,.62);
+      font-size:14px;
+      line-height:1.45;
     }
 
     .split{
       display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
     }
     .panel{
-      border-radius: var(--radius);
-      border: 1px solid rgba(0,0,0,.08);
-      background: #fff;
-      box-shadow: 0 10px 26px rgba(0,0,0,.06);
-      padding: 18px;
+      border-radius:var(--radius);
+      border:1px solid rgba(0,0,0,.08);
+      background:#fff;
+      box-shadow:var(--shadow2);
+      padding:18px;
     }
-    .panel h3{ margin:0 0 10px; font-size: 16px; }
-    .panel ul{ margin:0; padding-left: 18px; color: rgba(0,0,0,.62); font-size: 14px; }
-    .panel li{ margin: 8px 0; }
+    .panel h3{ margin:0 0 10px; font-size:16px; }
+    .panel p{ margin:0; color:rgba(0,0,0,.62); font-size:14px; }
+    .panel ul{
+      margin:0;
+      padding-left:18px;
+      color:rgba(0,0,0,.62);
+      font-size:14px;
+    }
+    .panel li{ margin:8px 0; }
 
-    /* Big CTA */
+    /* Founder */
+    .founderRow{
+      display:flex;
+      gap:18px;
+      align-items:center;
+    }
+    .founderPic{
+      width:120px;
+      height:120px;
+      border-radius:999px;
+      object-fit:cover;
+      border:1px solid rgba(0,0,0,.12);
+      box-shadow:0 12px 28px rgba(0,0,0,.12);
+      background:#fff;
+      flex:0 0 auto;
+    }
+
+    /* CTA band */
     .ctaBand{
-      padding: 52px 0 72px;
-      background: linear-gradient(180deg, rgba(0,0,0,.03), rgba(0,0,0,0));
-      border-top: 1px solid rgba(0,0,0,.06);
+      padding:52px 0 72px;
+      background:linear-gradient(180deg, rgba(0,0,0,.03), rgba(0,0,0,0));
+      border-top:1px solid rgba(0,0,0,.06);
     }
     .ctaBox{
-      border-radius: 28px;
-      border: 1px solid rgba(0,0,0,.10);
-      background: #fff;
-      box-shadow: var(--shadow);
-      padding: 26px;
+      border-radius:28px;
+      border:1px solid rgba(0,0,0,.10);
+      background:#fff;
+      box-shadow:var(--shadow);
+      padding:26px;
       display:flex;
-      flex-wrap: wrap;
+      flex-wrap:wrap;
       align-items:center;
       justify-content:space-between;
-      gap: 14px;
+      gap:14px;
     }
     .ctaBox h2{
       margin:0;
-      font-size: 22px;
-      letter-spacing: -0.02em;
+      font-size:22px;
+      letter-spacing:-0.02em;
     }
     .ctaBox p{
       margin:6px 0 0;
-      color: var(--muted);
-      font-size: 14px;
-      max-width: 70ch;
+      color:var(--muted);
+      font-size:14px;
+      max-width:72ch;
     }
 
     footer{
-      padding: 26px 0 40px;
-      color: rgba(0,0,0,.55);
-      font-size: 12px;
-      border-top: 1px solid rgba(0,0,0,.06);
+      padding:26px 0 40px;
+      color:rgba(0,0,0,.55);
+      font-size:12px;
+      border-top:1px solid rgba(0,0,0,.06);
     }
     .footRow{
       display:flex;
       justify-content:space-between;
       flex-wrap:wrap;
-      gap: 10px;
+      gap:10px;
     }
 
     /* Responsive */
     @media (max-width: 980px){
-      .heroGrid{ grid-template-columns: 1fr; }
+      .heroGrid{ grid-template-columns:1fr; }
       .shotWrap{ justify-content:flex-start; }
       .links{ display:none; }
-      .card{ grid-column: span 6; }
-      .split{ grid-template-columns: 1fr; }
+      .card{ grid-column:span 6; }
+      .split{ grid-template-columns:1fr; }
     }
     @media (max-width: 520px){
-      .card{ grid-column: span 12; }
-      .hero{ padding: 56px 0 34px; }
+      .card{ grid-column:span 12; }
+      .hero{ padding:56px 0 34px; }
+      .founderPic{ width:104px; height:104px; }
     }
   </style>
 </head>
@@ -288,46 +312,46 @@
   <div class="nav">
     <div class="wrap navInner">
       <div class="brand">
-        <span class="pill"></span>
+        <span class="dot"></span>
         <span>FailSafe</span>
       </div>
 
       <div class="links">
-        <a href="#overview">Overview</a>
         <a href="#how">How it works</a>
-        <a href="#for">Designed for</a>
-        <a href="#contact">Contact</a>
+        <a href="#sourcing">Sourcing</a>
+        <a href="#populations">Populations</a>
+        <a href="#founder">Founder</a>
       </div>
 
       <div class="navCta">
-        <a class="btn" href="#how">Learn more</a>
+        <a class="btn" href="NewWhitepaper.pdf" target="_blank" rel="noopener">Whitepaper</a>
         <a class="btn btnPrimary" href="mailto:failsafesolution@gmail.com?subject=FailSafe%20-%20Request%20Information">Request info</a>
       </div>
     </div>
   </div>
 
-  <header class="hero" id="overview">
+  <header class="hero" id="top">
     <div class="wrap heroGrid">
       <div>
         <div class="eyebrow">Controlled-access packaging • Safety between doses</div>
         <h1>Access control, built into the cap.</h1>
+
         <p class="sub">
-          FailSafe is a controlled-access pharmaceutical safety cap designed to limit physical access
-          to prescription medications between scheduled dosing times—helping reduce misuse, diversion,
-          accidental overdose, and pediatric exposure.
+          FailSafe is a packaging-level, controlled-access safety cap designed to restrict physical access to
+          prescription medications between scheduled dosing windows—helping reduce misuse, diversion,
+          accidental pediatric exposure, and unsafe access in vulnerable settings.
         </p>
 
         <div class="heroActions" id="contact">
           <a class="btn btnPrimary" href="mailto:failsafesolution@gmail.com?subject=FailSafe%20-%20Request%20Information">Request information</a>
-          <a class="btn" href="#for">Who it’s for</a>
-          <a class="btn" href="#how">How it works</a>
+          <a class="btn" href="NewWhitepaper.pdf" target="_blank" rel="noopener">Read the whitepaper</a>
+          <a class="btn" href="#sourcing">How it’s sourced</a>
         </div>
 
-        <div class="note">Prototype image shown. Early-stage venture exploring pilots and partners.</div>
+        <div class="note">Prototype image shown. Early-stage venture exploring pilots and pharmaceutical partners.</div>
       </div>
 
       <div class="shotWrap">
-        <!-- Your uploaded image file in the repo root -->
         <div>
           <img class="shot" src="product.jpg" alt="FailSafe controlled-access safety cap prototype" />
           <div class="caption">FailSafe prototype</div>
@@ -341,55 +365,144 @@
       <div class="sectionHeader">
         <div>
           <h2>How it works</h2>
-          <p>A familiar pharmacy-cap experience—designed to be passive, discreet, and protective.</p>
+          <p>A familiar pharmacy-cap experience—passive, discreet, and protective.</p>
         </div>
       </div>
 
       <div class="grid">
         <div class="card">
           <h3>Unlocks at scheduled intervals</h3>
-          <p>Access is permitted only during the prescribed window—reducing early or duplicate dosing.</p>
+          <p>Access is permitted only during an authorized dosing window—reducing early or duplicate dosing.</p>
         </div>
         <div class="card">
           <h3>Automatically re-locks</h3>
-          <p>Once closed, the cap returns to a locked state, helping reduce repeated access and diversion.</p>
+          <p>Between doses, the cap returns to a locked state, reducing repeated access and diversion risk.</p>
         </div>
         <div class="card">
           <h3>No app required</h3>
-          <p>No screens, pairing, tracking, or behavior change. Packaging-level safety that “just works.”</p>
+          <p>No screens, pairing, or surveillance—packaging-level safety designed to “just work.”</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section" id="for">
+  <section class="section" id="sourcing">
     <div class="wrap">
       <div class="sectionHeader">
         <div>
-          <h2>Designed for</h2>
-          <p>Use cases where safety, autonomy, and adherence matter—without surveillance or complexity.</p>
+          <h2>Sourced through pharmaceutical partners</h2>
+          <p>
+            FailSafe is designed to be supplied through pharmaceutical manufacturers by integrating into existing
+            packaging workflows—positioning controlled access as primary drug packaging, not an after-market add-on.
+          </p>
         </div>
       </div>
 
       <div class="split">
         <div class="panel">
-          <h3>Primary use cases</h3>
+          <h3>Deployment model</h3>
           <ul>
-            <li><strong>Controlled substances:</strong> reduce household diversion and impulsive overuse.</li>
-            <li><strong>Pediatric safety:</strong> adds protection beyond standard child-resistant closures.</li>
-            <li><strong>Dementia/Alzheimer’s:</strong> helps prevent accidental double dosing with a familiar interface.</li>
-            <li><strong>High-risk settings:</strong> supports adherence without requiring apps or monitoring.</li>
+            <li><strong>Manufacturer integration:</strong> designed for packaging-line sourcing and scale.</li>
+            <li><strong>Primary packaging:</strong> compatible with standard bottle formats and pharmacy workflows.</li>
+            <li><strong>Controlled-substance alignment:</strong> targeted for risk mitigation where access matters most.</li>
           </ul>
         </div>
 
         <div class="panel">
-          <h3>Who we partner with</h3>
+          <h3>Why packaging-level safety</h3>
           <ul>
-            <li>Pharmaceutical manufacturers</li>
-            <li>Pharmacies and health systems</li>
-            <li>Care programs and institutions</li>
-            <li>Pilot and packaging integration teams</li>
+            <li>Addresses unrestricted physical access once medication enters the home.</li>
+            <li>Complements education and monitoring by adding a physical safeguard.</li>
+            <li>Preserves autonomy with a familiar cap experience.</li>
           </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="populations">
+    <div class="wrap">
+      <div class="sectionHeader">
+        <div>
+          <h2>Target populations</h2>
+          <p>
+            FailSafe is designed for settings where safety, autonomy, and access control matter—without adding
+            friction, apps, or surveillance.
+          </p>
+        </div>
+      </div>
+
+      <div class="split">
+        <div class="panel">
+          <h3>Veterans & active-duty military</h3>
+          <ul>
+            <li>Non-punitive safeguard for scheduled access in high-stress environments.</li>
+            <li>Helps reduce early/duplicate dosing without behavior-dependent systems.</li>
+            <li>Reduces diversion risk in shared living spaces.</li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h3>Pediatric safety</h3>
+          <ul>
+            <li>Adds protection between doses beyond child-resistant closures.</li>
+            <li>Reduces accidental ingestion risk without relying on vigilance alone.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="split" style="margin-top:14px;">
+        <div class="panel">
+          <h3>Alzheimer’s & dementia</h3>
+          <ul>
+            <li>Passive access control that can support independence longer.</li>
+            <li>Helps reduce unsafe access outside authorized windows.</li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h3>Controlled-substance risk mitigation</h3>
+          <ul>
+            <li>Targets diversion and impulsive overuse at the access level.</li>
+            <li>Designed to complement existing prescribing and safety workflows.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="founder">
+    <div class="wrap">
+      <div class="sectionHeader">
+        <div>
+          <h2>Meet the Founder</h2>
+          <p>Building packaging-level safety informed by population-level evidence.</p>
+        </div>
+      </div>
+
+      <div class="split">
+        <div class="panel">
+          <div class="founderRow">
+            <img class="founderPic" src="founder.jpg" alt="Nima Ogabian, Founder of FailSafe" />
+            <div>
+              <h3 style="margin:0 0 6px;">Nima Ogabian</h3>
+              <p style="margin:0; font-size:14px; color:rgba(0,0,0,.65);">
+                Founder of FailSafe. Focused on reducing medication-related harm by addressing
+                post-dispensing access failures through evidence-informed pharmaceutical packaging design.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>Technical whitepaper</h3>
+          <p>
+            A detailed, evidence-informed analysis of post-dispensing medication risk and the design rationale
+            for packaging-level access control.
+          </p>
+          <div style="margin-top:10px;">
+            <a class="btn" href="NewWhitepaper.pdf" target="_blank" rel="noopener">Read the whitepaper (PDF)</a>
+          </div>
         </div>
       </div>
     </div>
@@ -400,11 +513,12 @@
       <div class="ctaBox">
         <div>
           <h2>Interested in pilots or partnerships?</h2>
-          <p>Reach out for a short overview, integration discussion, or pilot planning.</p>
+          <p>Reach out for a short overview, packaging integration discussion, or pilot planning.</p>
         </div>
         <div class="heroActions">
           <a class="btn btnPrimary" href="mailto:failsafesolution@gmail.com?subject=FailSafe%20-%20Pilot%20or%20Partnership%20Inquiry">Contact FailSafe</a>
-          <a class="btn" href="#overview">Back to top</a>
+          <a class="btn" href="NewWhitepaper.pdf" target="_blank" rel="noopener">Whitepaper</a>
+          <a class="btn" href="#top">Back to top</a>
         </div>
       </div>
     </div>
@@ -413,7 +527,11 @@
   <footer>
     <div class="wrap footRow">
       <div>© 2026 FailSafe. All rights reserved.</div>
-      <div>Contact: <a href="mailto:failsafesolution@gmail.com">failsafesolution@gmail.com</a></div>
+      <div>
+        <a href="NewWhitepaper.pdf" target="_blank" rel="noopener">Whitepaper</a>
+        &nbsp;·&nbsp;
+        <a href="mailto:failsafesolution@gmail.com">failsafesolution@gmail.com</a>
+      </div>
     </div>
   </footer>
 
