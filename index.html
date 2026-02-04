@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FailSafe</title>
+  <title>FailSafeSolution</title>
   <meta name="description" content="FailSafe is a packaging-level, controlled-access safety cap designed to restrict physical access to prescription medications between scheduled dosing windows." />
 
   <style>
@@ -17,10 +17,6 @@
       --shadow2:0 10px 26px rgba(0,0,0,.08);
       --radius:20px;
       --max:1120px;
-      .brandLogo{
-  height:30px;
-  width:auto;
-  display:block;
     }
 
     *{ box-sizing:border-box; }
@@ -61,10 +57,12 @@
       font-weight:700;
       letter-spacing:-0.02em;
       white-space:nowrap;
+      min-width: 180px;
     }
-    .dot{
-      width:10px;height:10px;border-radius:999px;background:#111;
-      box-shadow:0 0 0 6px rgba(0,0,0,.06);
+    .brandLogo{
+      height:36px;
+      width:auto;
+      display:block;
     }
     .links{
       display:flex;
@@ -79,6 +77,8 @@
       gap:10px;
       align-items:center;
       white-space:nowrap;
+      min-width: 220px;
+      justify-content:flex-end;
     }
 
     /* Buttons */
@@ -302,11 +302,14 @@
       .links{ display:none; }
       .card{ grid-column:span 6; }
       .split{ grid-template-columns:1fr; }
+      .brand{ min-width: auto; }
+      .navCta{ min-width: auto; }
     }
     @media (max-width: 520px){
       .card{ grid-column:span 12; }
       .hero{ padding:56px 0 34px; }
       .founderPic{ width:104px; height:104px; }
+      .brandLogo{ height:32px; }
     }
   </style>
 </head>
@@ -314,9 +317,10 @@
 <body>
 
   <div class="nav">
-    <a class="brand" href="#top" aria-label="FailSafeSolution home">
-  <img class="brandLogo" src="failsafe-solution.png" alt="FailSafeSolution" />
-</a>
+    <div class="wrap navInner">
+      <a class="brand" href="#top" aria-label="FailSafeSolution home">
+        <img class="brandLogo" src="failsafe-solution.png" alt="FailSafeSolution" />
+      </a>
 
       <div class="links">
         <a href="#how">How it works</a>
@@ -518,24 +522,4 @@
           <p>Reach out for a short overview, packaging integration discussion, or pilot planning.</p>
         </div>
         <div class="heroActions">
-          <a class="btn btnPrimary" href="mailto:failsafeworld@gmail.com?subject=FailSafe%20-%20Pilot%20or%20Partnership%20Inquiry">Contact FailSafe</a>
-          <a class="btn" href="NewWhitepaper.pdf" target="_blank" rel="noopener">Whitepaper</a>
-          <a class="btn" href="#top">Back to top</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <div class="wrap footRow">
-      <div>© 2026 FailSafe. All rights reserved.</div>
-      <div>
-        <a href="NewWhitepaper.pdf" target="_blank" rel="noopener">Whitepaper</a>
-        &nbsp;·&nbsp;
-        <a href="mailto:failsafeworld@gmail.com">failsafeworld@gmail.com</a>
-      </div>
-    </div>
-  </footer>
-
-</body>
-</html>
+          <a class="btn btnPrimary" href="mailto:failsafeworld@gmail.com?subject=FailSafe%20-%
