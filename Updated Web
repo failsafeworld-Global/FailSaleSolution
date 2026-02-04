@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FailSafeSolution</title>
+  <meta name="description" content="FailSafe is a packaging-level, controlled-access safety cap designed to restrict physical access to prescription medications between scheduled dosing windows." />
+
+  <style>
+    :root{
+      --bg:#ffffff;
+      --text:#0b0b0f;
+      --muted:#5c5f6a;
+      --line:rgba(0,0,0,.10);
+      --card:rgba(0,0,0,.03);
+      --shadow:0 20px 60px rgba(0,0,0,.10);
+      --shadow2:0 10px 26px rgba(0,0,0,.08);
+      --radius:20px;
+      --max:1120px;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:var(--bg);
+    }
+    a{ color:inherit; text-decoration:none; }
+
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:0 22px;
+    }
+
+    /* NAV */
+    .nav{
+      position:sticky;
+      top:0;
+      z-index:100;
+      background:rgba(255,255,255,.9);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(0,0,0,.08);
+    }
+
+    .navInner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      height:96px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+    }
+
+    .brandLogo{
+      height:72px;
+      width:auto;
+      display:block;
+    }
+
+    .links{
+      display:flex;
+      gap:18px;
+      font-size:14px;
+      color:rgba(0,0,0,.7);
+    }
+
+    .links a:hover{ color:#000; }
+
+    .navCta{
+      display:flex;
+      gap:10px;
+    }
+
+    .btn{
+      padding:9px 14px;
+      border-radius:999px;
+      font-size:13px;
+      border:1px solid rgba(0,0,0,.14);
+      background:#fff;
+    }
+
+    .btnPrimary{
+      background:#0b0b0f;
+      color:#fff;
+      border-color:#0b0b0f;
+    }
+
+    /* HERO */
+    .hero{
+      padding:80px 0 48px;
+    }
+
+    .heroGrid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:36px;
+      align-items:center;
+    }
+
+    h1{
+      font-size:clamp(40px,5vw,64px);
+      line-height:1.05;
+      margin:0 0 14px;
+    }
+
+    .sub{
+      font-size:18px;
+      color:var(--muted);
+      max-width:60ch;
+    }
+
+    .shot{
+      width:100%;
+      max-width:420px;
+      border-radius:24px;
+      box-shadow:var(--shadow);
+    }
+
+    /* SECTIONS */
+    .section{ padding:64px 0; }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+
+    .card{
+      padding:18px;
+      border-radius:var(--radius);
+      background:var(--card);
+      border:1px solid rgba(0,0,0,.08);
+    }
+
+    /* FOOTER */
+    footer{
+      padding:28px 0 40px;
+      font-size:12px;
+      color:rgba(0,0,0,.55);
+      border-top:1px solid rgba(0,0,0,.06);
+    }
+
+    /* MOBILE */
+    @media (max-width: 900px){
+      .heroGrid{ grid-template-columns:1fr; }
+      .links{ display:none; }
+    }
+
+    @media (max-width: 520px){
+      .brandLogo{
+        height:64px;   /* BIG ON MOBILE */
+      }
+
+      .navInner{
+        height:92px;   /* MATCH LOGO */
+      }
+
+      h1{
+        font-size:42px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="nav">
+    <div class="wrap navInner">
+      <a class="brand" href="#top">
+        <img class="brandLogo" src="failsafe-solution.png" alt="FailSafeSolution">
+      </a>
+
+      <div class="links">
+        <a href="#how">How it works</a>
+        <a href="#sourcing">Sourcing</a>
+        <a href="#populations">Populations</a>
+        <a href="#founder">Founder</a>
+      </div>
+
+      <div class="navCta">
+        <a class="btn" href="NewWhitepaper.pdf" target="_blank">Whitepaper</a>
+        <a class="btn btnPrimary" href="mailto:failsafeworld@gmail.com">Request info</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="hero" id="top">
+    <div class="wrap heroGrid">
+      <div>
+        <h1>Access control, built into the cap.</h1>
+        <p class="sub">
+          FailSafe is a packaging-level, controlled-access safety cap designed to restrict physical access
+          to prescription medications between scheduled dosing windows.
+        </p>
+      </div>
+
+      <img class="shot" src="product.jpg" alt="FailSafe prototype">
+    </div>
+  </header>
+
+  <footer>
+    <div class="wrap">
+      © 2026 FailSafe. All rights reserved.
+    </div>
+  </footer>
+
+</body>
+</html>
