@@ -17,6 +17,10 @@
       --shadow2:0 10px 26px rgba(0,0,0,.08);
       --radius:20px;
       --max:1120px;
+      .brandLogo{
+  height:30px;
+  width:auto;
+  display:block;
     }
 
     *{ box-sizing:border-box; }
@@ -310,11 +314,9 @@
 <body>
 
   <div class="nav">
-    <div class="wrap navInner">
-      <div class="brand">
-        <span class="dot"></span>
-        <span>FailSafe</span>
-      </div>
+    <a class="brand" href="#top" aria-label="FailSafe home">
+  <img class="brandLogo" src="assets/failsafe-logo.png" alt="FailSafe" />
+</a>
 
       <div class="links">
         <a href="#how">How it works</a>
